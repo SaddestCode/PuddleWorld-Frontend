@@ -1,10 +1,25 @@
 ---
+
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 ---
+
+<script>
+	// Load theme set in cookie...
+	document.addEventListener('DOMContentLoaded', () => {
+	  const themeCookie = document.cookie.split('; ')
+		.find(row => row.startsWith(`theme=`));
+  
+	  let theme = themeCookie ? themeCookie.split('=')[1] : 'dark';
+	  document.body.setAttribute('data-bs-theme', theme);
+	});
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -16,36 +31,9 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body data-bs-theme='dark'>
 		<slot />
 	</body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
 </style>
