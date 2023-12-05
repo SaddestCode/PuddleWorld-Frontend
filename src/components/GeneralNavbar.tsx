@@ -3,7 +3,8 @@ import ThemeChangerIcon from './ThemeToggleIcon';
 
 const GeneralNavbar = () => {
   return (
-    <Navbar expand="lg">
+    <>
+    <Navbar expand="lg" className="mt-3">
         <Container>
             {/* TODO: Add logo or smth... */}
             <Navbar.Brand className="ml-5" href="#home">Puddle World</Navbar.Brand>
@@ -22,6 +23,8 @@ const GeneralNavbar = () => {
             </Navbar.Collapse>
         </Container>
     </Navbar>
+    <hr></hr>
+    </>
   );
 };
 

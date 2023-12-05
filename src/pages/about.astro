@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GeneralNavbar from '../components/GeneralNavbar';
+
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { BookFill, CardChecklist, People } from 'react-bootstrap-icons';
+
+---
+
+<Layout title="About Us">
+    <GeneralNavbar client:load/>
+    <Container>
+        <Row className="mt-5 mb-4">
+            <Col xs="4">
+                <People size="96"/>
+                <h2>A Community-Powered Platform</h2>
+                Puddle World is more than just a website; it's a vibrant community-driven platform, fueled by the collective passion and knowledge of its users.
+            </Col>
+            <Col xs="4">
+                <BookFill size="96"/>
+                <h2>Dynamic Knowledge Exchange</h2>
+                Explore our forum, a dynamic space where knowledge flows freely. Contribute to the growing repository of insights through engaging Q&A sessions.
+            </Col>
+            <Col xs="4">
+                <CardChecklist size="96" className="align-center"/>
+                <h2>Interactive Learning with Flashcards</h2>
+                Elevate your learning experience with interactive flashcard quizzes. Create, share, and contribute to a diverse range of quizzes for comprehensive knowledge enrichment!
+            </Col>
+        </Row>
+    </Container>
+</Layout>
