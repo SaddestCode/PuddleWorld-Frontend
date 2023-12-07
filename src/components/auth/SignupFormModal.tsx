@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Nav } from 'react-bootstrap';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import type { SignupFormInfo } from '../../utils/auth/authFormInfo';
 
@@ -41,7 +41,7 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
             />
           </Form.Group>
 
-          <Form.Group controlId="signupEmail">
+          <Form.Group className="mt-3" controlId="signupEmail">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
@@ -51,7 +51,7 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
             />
           </Form.Group>
 
-          <Form.Group controlId="signupPassword">
+          <Form.Group className="mt-3" controlId="signupPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -69,9 +69,10 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
       </Modal.Body>
 
       <Modal.Footer>
-        <span onClick={handleLoginInstead} style={{ cursor: 'pointer', color: 'blue' }}>
-          Already have an account? Login Instead.
-        </span>
+        Already have an account?
+        <Nav.Link onClick={handleLoginInstead} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+        Login Instead.
+        </Nav.Link>
       </Modal.Footer>
     </>
   );

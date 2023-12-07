@@ -4,18 +4,18 @@ import { Modal } from 'react-bootstrap';
 import { AuthMode } from '../../utils/auth/authMode';
 import type { AuthFormInfo } from '../../utils/auth/authFormInfo';
 import SignupFormModal from './SignupFormModal';
+import LoginFormModal from './LoginFormModal';
 
 interface AuthModalProps {
   authMode: AuthMode;
   show: boolean;
   handleClose: () => void;
-  handleSubmit: (authMode: AuthMode, info: AuthFormInfo) => void; 
   handleAuthModeChange: (newMode: AuthMode) => void;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({ authMode, show, handleClose, handleSubmit, handleAuthModeChange }) => {
+const AuthModal: React.FC<AuthModalProps> = ({ authMode, show, handleClose, handleAuthModeChange }) => {
   const handleFormSubmit = (info: AuthFormInfo) => {
-    handleSubmit(authMode, info);
+    // TODO: Backend request to login or signup
   }
 
   const flipAuthMode = () => {
@@ -31,6 +31,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ authMode, show, handleClose, hand
       {
         (authMode == AuthMode.SIGNUP) &&
         <SignupFormModal handleSubmit={handleFormSubmit} handleLoginInstead={flipAuthMode}/>
+      }
+
+      {
+        (authMode == AuthMode.LOGIN) &&
+        <LoginFormModal handleSubmit={handleFormSubmit} handleSignupInstead={flipAuthMode}/>
       }
     </Modal>
   );

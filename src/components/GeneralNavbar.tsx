@@ -8,12 +8,6 @@ import type { AuthFormInfo } from '../utils/auth/authFormInfo';
 const GeneralNavbar = () => {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [currentAuthMode, setAuthMode] = useState(AuthMode.SIGNUP);
-    
-
-    const handleAuthSubmit = (authMode: AuthMode, info: AuthFormInfo) => {
-        console.log("TODO...")
-    };
-
     const handleAuthClose = () => {
         setShowAuthModal(false);
     };
@@ -70,7 +64,6 @@ const GeneralNavbar = () => {
             authMode={currentAuthMode}
             show={showAuthModal}
             handleClose={handleAuthClose}
-            handleSubmit={handleAuthSubmit}
             handleAuthModeChange={handleAuthChange}
         />
     </>
