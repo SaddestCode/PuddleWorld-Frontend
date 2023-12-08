@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  your_node_app:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: npm run dev
+    network_mode: "host"

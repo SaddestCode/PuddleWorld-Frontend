@@ -1,43 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { COOKIES_KEY } from '../const';
 import { LightbulbFill, Lightbulb } from 'react-bootstrap-icons';
-import Cookies from 'js-cookie';
+import { getThemeCookie, setThemeCookie } from '../utils/themeCookieHandler';
+import { ToastContainer, toast } from 'react-toastify';
 
 /**
  * An interactable lightbulb icon that toggles between dark and light theme;
  * (Edits the cookie flag, and reloads)
- * 
- * TODO: Maybe instead of reloading the whole page, have a popup that tells the user "change will be applied on next reload"?
- * @returns 
  */
 const ThemeToggleIcon: React.FC = () => {
   const [theme, setTheme] = useState<string>('light');
 
   useEffect(() => {
-    const savedTheme = Cookies.get(COOKIES_KEY.THEME);
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+      setTheme(getThemeCookie());
   }, []);
 
   const toggleTheme = () => {
-    console.log("test");
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    Cookies.set(COOKIES_KEY.THEME, newTheme)
+    const newTheme = (theme === 'light') ? 'dark' : 'light';
+    setThemeCookie(newTheme);
 
-    setTheme(newTheme);
-    window.location.reload();
+    toast.success("👍 Your theme change will take effect on the next page or after refreshing!")
   };
 
   return (
-    <div onClick={toggleTheme} style={{ cursor: 'pointer' }}>
-      {theme === 'light' ? (
-        <LightbulbFill/>
-      ) : (
-        <Lightbulb/>
-      )}
-    </div>
+    <>
+      <div onClick={toggleTheme} style={{ cursor: 'pointer' }}>
+        {theme === 'light' ? (
+          <LightbulbFill/>
+        ) : (
+          <Lightbulb/>
+        )}
+      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={getThemeCookie()}
+        />
+    </>
   );
 };
 

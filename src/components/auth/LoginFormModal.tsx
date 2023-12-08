@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Nav } from 'react-bootstrap';
 import type { LoginFormInfo } from '../../utils/auth/authFormInfo';
+import { UAParser } from 'ua-parser-js';
 
 interface LoginFormModalProps {
   handleSubmit: (info: LoginFormInfo) => void;
@@ -14,10 +15,13 @@ const LoginFormModal: React.FC<LoginFormModalProps> = ({ handleSubmit, handleSig
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const parser = new UAParser();
+    const browserInfo = parser.getBrowser();
+
     const signupInfo: LoginFormInfo = {
       username: username,
       plainPassword: password,
-      browserInfo: ""
+      browserInfo: browserInfo.name + " " + browserInfo.version
     };
 
     handleSubmit(signupInfo);
