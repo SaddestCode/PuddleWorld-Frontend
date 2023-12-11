@@ -1,15 +1,17 @@
 // NOTE: For Login and Signup
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from 'react-bootstrap';
-import { AuthMode } from '../../utils/auth/authMode';
-import type { AuthFormInfo, LoginFormInfo, SignupFormInfo } from '../../utils/auth/authFormInfo';
+import { AuthMode } from '@/utils/auth/authMode';
+import type { AuthFormInfo, LoginFormInfo, SignupFormInfo } from '@/utils/auth/authFormInfo';
 import SignupFormModal from './SignupFormModal';
 import LoginFormModal from './LoginFormModal';
-import { API_ROUTES } from '../../const';
-import type { ResponseMessage } from '../../utils/responseMessage';
+import { API_ROUTES } from '@/const';
+
+import { getThemeCookie } from '@/utils/themeCookieHandler';
+import type { ResponseMessage } from '@/utils/responseMessage';
+
 import { ToastContainer, toast, type Theme } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getThemeCookie } from '../../utils/themeCookieHandler';
 
 interface AuthModalProps {
   authMode: AuthMode;
