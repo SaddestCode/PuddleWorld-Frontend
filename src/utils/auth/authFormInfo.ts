@@ -8,5 +8,4 @@ export interface LoginFormInfo extends AuthFormInfo {
 }
 
 export interface SignupFormInfo extends AuthFormInfo {
-    email: string;
 }

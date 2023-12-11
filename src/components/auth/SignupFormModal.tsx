@@ -9,20 +9,32 @@ interface SignupFormModalProps {
 }
 
 const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleLoginInstead }) => {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [usernameValid, setUsernameValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+
+  const validateForm = () => {
+    const isUsernameValid = username.length >= 3;
+    const isPasswordValid = password.length >= 8;
+
+    setUsernameValid(isUsernameValid);
+    setPasswordValid(isPasswordValid);
+
+    return isUsernameValid && isPasswordValid;
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const signupInfo: SignupFormInfo = {
-      username: username,
-      plainPassword: password,
-      email: email,
-    };
+    if (validateForm()) {
+      const signupInfo: SignupFormInfo = {
+        username: username,
+        plainPassword: password
+      };
 
-    handleSubmit(signupInfo);
+      handleSubmit(signupInfo);
+    }
   };
 
   return (
@@ -38,17 +50,11 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
               placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              isInvalid={!usernameValid}
             />
-          </Form.Group>
-
-          <Form.Group className="mt-3" controlId="signupEmail">
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Form.Control.Feedback type="invalid">
+              Username must be at least 3 characters long.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mt-3" controlId="signupPassword">
@@ -58,7 +64,11 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              isInvalid={!passwordValid}
             />
+            <Form.Control.Feedback type="invalid">
+              Password must be at least 8 characters long.
+            </Form.Control.Feedback>
           </Form.Group>
           <PasswordStrengthBar password={password} />
 
@@ -71,7 +81,7 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
       <Modal.Footer>
         Already have an account?
         <Nav.Link onClick={handleLoginInstead} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-        Login Instead.
+          Login Instead.
         </Nav.Link>
       </Modal.Footer>
     </>
