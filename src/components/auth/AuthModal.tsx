@@ -58,7 +58,7 @@ async function requestDoneCallback(mode: AuthMode, response: Response) {
   }
 
   let authData = responseMessage.data as AuthResponseData;
-  setSessionCookie(authData.token, authData.displayName);
+  setSessionCookie(authData);
 
   let successMessage = "Signup successful, bringing you to the account page..."
   if (mode == AuthMode.LOGIN) {

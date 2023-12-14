@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Button, Nav } from 'react-bootstrap';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import type { SignupFormInfo } from '@/models/auth/authFormInfo';
+import UAParser from 'ua-parser-js';
 
 interface SignupFormModalProps {
   handleSubmit: (info: SignupFormInfo) => void;
@@ -28,9 +29,13 @@ const SignupFormModal: React.FC<SignupFormModalProps> = ({ handleSubmit, handleL
     e.preventDefault();
 
     if (validateForm()) {
+      const parser = new UAParser();
+      const browserInfo = parser.getBrowser();
+
       const signupInfo: SignupFormInfo = {
         username: username,
-        plainPassword: password
+        plainPassword: password,
+        browserInfo: browserInfo.name + " " + browserInfo.version
       };
 
       handleSubmit(signupInfo);
