@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LightbulbFill, Lightbulb } from 'react-bootstrap-icons';
-import { getThemeCookie, setThemeCookie } from '@/utils/themeCookieHandler';
+import { getThemeCookie, setThemeCookie } from '@/utils/cookies/themeCookieHandler';
 import { ToastContainer, toast } from 'react-toastify';
 
 /**

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Nav } from 'react-bootstrap';
 import { UAParser } from 'ua-parser-js';
-import type { LoginFormInfo } from '@/utils/auth/authFormInfo';
+import type { LoginFormInfo } from '@/models/auth/authFormInfo';
 
 interface LoginFormModalProps {
   handleSubmit: (info: LoginFormInfo) => void;

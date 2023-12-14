@@ -2,8 +2,7 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import ThemeChangerIcon from './ThemeToggleIcon';
 import AuthModal from './auth/AuthModal';
 import { useState } from 'react';
-import { AuthMode } from '@/utils/auth/authMode';
-import type { AuthFormInfo } from '@/utils/auth/authFormInfo';
+import { AuthMode } from '@/models/auth/authMode';
 
 const GeneralNavbar = () => {
     const [showAuthModal, setShowAuthModal] = useState(false);

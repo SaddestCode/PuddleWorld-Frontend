@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Nav } from 'react-bootstrap';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import type { SignupFormInfo } from '@/utils/auth/authFormInfo';
+import type { SignupFormInfo } from '@/models/auth/authFormInfo';
 
 interface SignupFormModalProps {
   handleSubmit: (info: SignupFormInfo) => void;
