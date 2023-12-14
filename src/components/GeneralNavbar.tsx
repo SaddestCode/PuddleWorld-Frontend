@@ -1,13 +1,16 @@
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import ThemeChangerIcon from './ThemeToggleIcon';
 import AuthModal from './auth/AuthModal';
-import { useState } from 'react';
-import { AuthMode } from '@/utils/auth/authMode';
-import type { AuthFormInfo } from '@/utils/auth/authFormInfo';
+import { useEffect, useState } from 'react';
+import { AuthMode } from '@/models/auth/authMode';
+import { getSessionCookie, type SessionCookie } from '@/utils/cookies/sessionCookieHandler';
 
 const GeneralNavbar = () => {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [currentAuthMode, setAuthMode] = useState(AuthMode.SIGNUP);
+    
+    const [userSession, setUserSession] = useState<SessionCookie | undefined>(undefined);
+
     const handleAuthClose = () => {
         setShowAuthModal(false);
     };
@@ -26,6 +29,10 @@ const GeneralNavbar = () => {
         setAuthMode(newMode);
     }
 
+    useEffect(() => {
+        setUserSession(getSessionCookie());
+    }, [])
+
     return (
     <>
         <Navbar expand="lg" className="mt-3">
@@ -42,18 +49,36 @@ const GeneralNavbar = () => {
                 </Navbar.Collapse>
 
                 <Navbar.Collapse className="justify-content-end">
-                    <Button
-                        className="mr-2"
-                        variant="primary"
-                        onClick={displaySignup}>
-                            Sign Up
-                    </Button>
-                    <Button
-                        className="mr-4"
-                        variant="secondary"
-                        onClick={displayLogin}>
-                            Login
-                    </Button>
+
+                    { 
+                        // Show login/signup button if user is not logged in...
+                        !userSession &&
+                        <>
+                            <Button
+                                className="mr-2"
+                                variant="primary"
+                                onClick={displaySignup}>
+                                    Sign Up
+                            </Button>
+                            <Button
+                                className="mr-2"
+                                variant="secondary"
+                                onClick={displayLogin}>
+                                    Login
+                            </Button>
+                        </>
+                    }
+
+                    { 
+                        // TODO: Show user profile picture
+                        // TODO: Display name should be dropdown on click, accessing user settings or profile page, etc...
+                        userSession &&
+                        <>
+                            Welcome back, <b>{userSession.displayName}</b>
+                        </>
+                    }
+                    
+                    <div className="ml-2"/>
                     <ThemeChangerIcon/>
                 </Navbar.Collapse>
             </Container>

@@ -3,7 +3,7 @@
  */
 
 import Cookies from 'js-cookie';
-import { COOKIES_KEY } from '../const';
+import { COOKIES_KEY } from '@/const';
 import type { Theme } from 'react-toastify';
 
 export function getThemeCookie(): Theme {

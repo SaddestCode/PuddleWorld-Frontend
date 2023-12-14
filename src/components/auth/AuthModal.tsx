@@ -1,17 +1,19 @@
 // NOTE: For Login and Signup
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import { AuthMode } from '@/utils/auth/authMode';
-import type { AuthFormInfo, LoginFormInfo, SignupFormInfo } from '@/utils/auth/authFormInfo';
+import { AuthMode } from '@/models/auth/authMode';
+import type { AuthFormInfo, LoginFormInfo, SignupFormInfo } from '@/models/auth/authFormInfo';
 import SignupFormModal from './SignupFormModal';
 import LoginFormModal from './LoginFormModal';
 import { API_ROUTES } from '@/const';
 
-import { getThemeCookie } from '@/utils/themeCookieHandler';
-import type { ResponseMessage } from '@/utils/responseMessage';
+import { getThemeCookie } from '@/utils/cookies/themeCookieHandler';
+import type { ResponseMessage } from '@/models/responseMessage';
 
-import { ToastContainer, toast, type Theme } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import type { AuthResponseData } from '@/models/auth/authResponseData';
+import { setSessionCookie } from '@/utils/cookies/sessionCookieHandler';
 
 interface AuthModalProps {
   authMode: AuthMode;
@@ -50,21 +52,21 @@ async function requestDoneCallback(mode: AuthMode, response: Response) {
   let data = await response.json();
   let responseMessage = data.message as ResponseMessage;
 
-  if (responseMessage.title == "SUCCESS") {
-    // TODO: Store session token...
-
-    let successMessage = "Signup successful, bringing you to the account page..."
-    if (mode == AuthMode.LOGIN) {
-      successMessage = "Successfully logged in, bringing you to the account page..."
-    }
-
-    toast.success(successMessage);
-    // TODO: Wait for 2 seconds or so, then bring to account page...
-
+  if (responseMessage.title != "SUCCESS") {
+    toast.error(responseMessage.message);
     return;
   }
 
-  toast.error(responseMessage.message);
+  let authData = responseMessage.data as AuthResponseData;
+  setSessionCookie(authData);
+
+  let successMessage = "Signup successful, bringing you to the account page..."
+  if (mode == AuthMode.LOGIN) {
+    successMessage = `Welcome back ${authData.displayName}, bringing you to the account page...`
+  }
+
+  toast.success(successMessage);
+  // TODO: Wait for 2 seconds or so, then bring to account page...
 }
 
 /**

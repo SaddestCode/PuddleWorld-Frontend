@@ -1,10 +1,10 @@
 export interface AuthFormInfo {
     username: string;
     plainPassword: string;
+    browserInfo: string;
 }
 
 export interface LoginFormInfo extends AuthFormInfo {
-    browserInfo: string;
 }
 
 export interface SignupFormInfo extends AuthFormInfo {
